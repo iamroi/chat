@@ -37,7 +37,8 @@ class Message extends BaseModel
         'flagged' => 'boolean',
     ];
 
-    protected $appends = ['sender'];
+    // protected $appends = ['sender'];
+    protected $appends = [];
 
     public function participation()
     {
