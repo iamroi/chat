@@ -93,13 +93,20 @@ class Message extends BaseModel
             'type'             => $type,
         ]);
 
+        $message->participation()->associate($participant);
+
+        $messageWasSent = app(Chat::sentMessageEvent());
+
         if (Chat::broadcasts()) {
-            broadcast(new MessageWasSent($message))->toOthers();
+            broadcast(new $messageWasSent($message))->toOthers();
         } else {
-            event(new MessageWasSent($message));
+            event(new $messageWasSent($message));
         }
 
-        $this->createNotifications($message);
+        //abort(200);
+
+        // TODO
+        //$this->createNotifications($message);
 
         return $message;
     }

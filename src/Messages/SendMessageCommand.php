@@ -24,5 +24,7 @@ class SendMessageCommand
         $this->body = $body;
         $this->type = $type;
         $this->participant = $this->conversation->participantFromSender($sender);
+
+        $this->participant->messageable()->associate($sender);
     }
 }

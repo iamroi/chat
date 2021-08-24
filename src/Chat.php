@@ -131,7 +131,7 @@ class Chat
 
     public static function sentMessageEvent()
     {
-        return config('musonza_chat.sent_message_event');
+        return config('musonza_chat.sent_message_event', MessageWasSent::class);
     }
 
     public static function senderFieldsWhitelist()
