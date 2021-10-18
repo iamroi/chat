@@ -98,9 +98,7 @@ class Message extends BaseModel
         $messageWasSent = app(Chat::sentMessageEvent());
 
         if (Chat::broadcasts()) {
-            broadcast(new $messageWasSent($message))->toOthers();
-        } else {
-            event(new $messageWasSent($message));
+            broadcast(new MessageWasSent($message))->toOthers();
         }
 
         //abort(200);
