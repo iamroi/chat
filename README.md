@@ -1,12 +1,16 @@
 <p align="left"><img src="menu.png" alt="chat" width="130px"></p>
 
-[![Build Status](https://travis-ci.org/musonza/chat.svg?branch=master)](https://travis-ci.org/musonza/chat)
+[![Build Status](https://travis-ci.org/musonza/chat.svg?branch=master)](https://app.travis-ci.com/github/musonza/chat)
 [![Downloads](https://poser.pugx.org/musonza/chat/d/total.svg)](https://packagist.org/packages/musonza/chat)
 [![Packagist](https://img.shields.io/packagist/v/musonza/chat.svg)](https://packagist.org/packages/musonza/chat)
 <a href="https://codeclimate.com/github/musonza/chat/maintainability"><img src="https://api.codeclimate.com/v1/badges/85f152eae2a04b25783d/maintainability" /></a>
 ## Chat
 
 Create a Chat application for your multiple Models
+
+**********************************************************
+**What to learn how to make a package like this? https://leanpub.com/laravel-package-development**
+***************************************************************************************************
 
 ## Table of Contents
 
@@ -181,6 +185,18 @@ The default message type is `text`. If you want to specify custom type you can c
 ```php
 $message = Chat::message('http://example.com/img')
 		->type('image')
+		->from($model)
+		->to($conversation)
+		->send();
+```
+#### To add more details about a message
+
+Sometimes you might want to add details about a message. For example, when the message type is an attachment, and you want to add details such as attachment's filename, and attachment's file url, you can call the `data()` function and pass your data as an array.
+
+```php
+$message = Chat::message('Attachment 1')
+		->type('attachment')
+		->data(['file_name' => 'post_image.jpg', 'file_url' => 'http://example.com/post_img.jpg'])
 		->from($model)
 		->to($conversation)
 		->send();
