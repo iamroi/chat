@@ -28,6 +28,9 @@ class Conversation extends BaseModel
         'private'        => 'boolean',
     ];
 
+    // disabled this to prevent unnecessary deadlocks during heavy chat session
+    const UPDATED_AT = null;
+
     public function delete()
     {
         if ($this->participants()->count()) {
