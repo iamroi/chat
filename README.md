@@ -20,6 +20,7 @@ Create a Chat application for your multiple Models
 - [Installation](#installation)
 - [Usage](#usage)
   - [Adding the ability to participate to a Model](#Adding-the-ability-to-participate-to-a-Model)
+  - [Enable the routes](#enable-the-routes)
   - [Get participant details](#get-participant-details)
   - [Creating a conversation](#creating-a-conversation)
   - [Get a conversation by Id](#get-a-conversation-by-id)
@@ -66,7 +67,7 @@ composer require musonza/chat
 Publish the assets:
 
 ```
-php artisan vendor:publish
+php artisan vendor:publish --provider="Musonza\Chat\ChatServiceProvider"
 ```
 
 This will publish database migrations and a configuration file `musonza_chat.php` in the Laravel config folder.
@@ -100,6 +101,10 @@ class Bot extends Model
     use Messageable;
 }
 ```
+
+#### Enable the routes
+
+The package includes routes for conversations, conversation participants, and messaging. These routes are hidden by default. To enable them, change `should_load_routes` to `true`, but make sure to configure the middleware correctly. 
 
 #### Get participant details
 

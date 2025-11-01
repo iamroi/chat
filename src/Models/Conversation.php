@@ -314,8 +314,8 @@ class Conversation extends BaseModel
      * Get messages in conversation for the specific participant.
      *
      * @param Model $participant
-     * @param $paginationParams
-     * @param $deleted
+     * @param       $paginationParams
+     * @param       $deleted
      *
      * @return LengthAwarePaginator|HasMany|Builder
      */
@@ -347,7 +347,7 @@ class Conversation extends BaseModel
 
     /**
      * @param Model $participant
-     * @param $options
+     * @param       $options
      *
      * @return mixed
      */
@@ -375,11 +375,14 @@ class Conversation extends BaseModel
             $paginator = $paginator->where('c.direct_message', (bool) $options['filters']['direct_message']);
         }
 
-        return $paginator
+        $total = $paginator->distinct('c.id')->toBase()->getCountForPagination();
+
+        $paginator = $paginator
             ->orderBy('c.updated_at', 'DESC')
             ->orderBy('c.id', 'DESC')
-            ->distinct('c.id')
-            ->paginate($options['perPage'], [$this->tablePrefix.'participation.*', 'c.*'], $options['pageName'], $options['page']);
+            ->distinct('c.updated_at', 'c.id');
+
+        return $paginator->paginate($options['perPage'], [$this->tablePrefix.'participation.*', 'c.*'], $options['pageName'], $options['page'], $total);
     }
 
     public function unDeletedCount()
